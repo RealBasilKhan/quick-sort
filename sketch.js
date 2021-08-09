@@ -7,7 +7,7 @@ function setup() {
   for (let i = 0; i < values.length; i++) {
     values[i] = random(height);
   }
-  frameRate(5);
+  //frameRate(5);
   quickSort(values, 0, values.length - 1);
 }
 
@@ -21,24 +21,30 @@ function quickSort(arr, start, end) {
 }
 
 function partition(arr, start, end) {
-  let pivotIndex = 0;
   let pivotValue = arr[end];
+  let pivotIndex = start;
+  for (let i = start; i < end; i++) {
+    if (arr[i] < pivotValue) {
+      swap(arr, i, pivotIndex);
+      pivotIndex++;
+    }
+  }
+  swap(arr, pivotIndex, end);
+  return pivotIndex;
 }
 
 function draw() {
   background(51);
 
-  if (i < values.length) {
-    for (let j = 0; j < values.length - i - 1; j++) {
-      stroke(0);
-      fill(255);
-      rect(i * w, heigh - values[i], w, values[i]);
-    }
+  for (let i = 0; i < values.length; i++) {
+    stroke(0);
+    fill(255);
+    rect(i * w, height - values[i], w, values[i]);
   }
+}
 
-  function swap(arr, a, b) {
-    let temp = arr[a];
-    arr[a] = arr[b];
-    arr[b] = temp;
-  }
+function swap(arr, a, b) {
+  let temp = arr[a];
+  arr[a] = arr[b];
+  arr[b] = temp;
 }
